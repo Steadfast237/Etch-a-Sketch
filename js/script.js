@@ -1,7 +1,13 @@
 let gridSize = 16;
 let squares = undefined;
+let currentColor = 'black';
+
 const grid = document.querySelector('.container');
 const buttonSetSize = document.querySelector('.size');
+const buttonClear = document.querySelector('.clear');
+const buttonErase = document.querySelector('.erase');
+const buttonBlack = document.querySelector('.black');
+const buttonInput = document.querySelector('#input-color');
 
 function generateGrid() {
   for (let row = 1; row <= gridSize; row++) {
@@ -9,7 +15,6 @@ function generateGrid() {
       const square = document.createElement('div');
 
       square.style.width = `${535 / gridSize}px`;
-      square.style.outline = '1px solid red';
       square.style.height = 'auto';
       square.classList.add('square');
 
@@ -19,7 +24,7 @@ function generateGrid() {
 }
 
 function startDrawing(e) {
-  e.target.style.backgroundColor = 'black';
+  e.target.style.backgroundColor = currentColor;
 
   squares.forEach((sq) => {
     sq.addEventListener('mousemove', drawing);
@@ -27,7 +32,7 @@ function startDrawing(e) {
 }
 
 function drawing(e) {
-  e.target.style.backgroundColor = 'black';
+  e.target.style.backgroundColor = currentColor;
 }
 
 function stopDrawing() {
@@ -44,9 +49,42 @@ function setSize() {
     return;
   }
 
+  if (newGridSize > 100) {
+    gridSize = 100;
+    grid.textContent = '';
+    init();
+    return;
+  }
+
   gridSize = newGridSize;
   grid.textContent = '';
   init();
+}
+
+function clearGrid() {
+  squares.forEach((sq) => {
+    sq.style.backgroundColor = 'white';
+  });
+}
+
+function clearSquare() {
+  currentColor = 'white';
+}
+
+function setColorBlack() {
+  currentColor = 'black';
+}
+
+function setColorInput(e) {
+  currentColor = e.target.value;
+}
+
+function randomColor() {
+  const firstColor = Math.floor(Math.random() * 256);
+  const secondColor = Math.floor(Math.random() * 256);
+  const thirdColor = Math.floor(Math.random() * 256);
+
+  return `rgb(${firstColor},${secondColor},${thirdColor})`;
 }
 
 function init() {
@@ -62,5 +100,9 @@ function init() {
 }
 
 buttonSetSize.addEventListener('click', setSize);
+buttonClear.addEventListener('click', clearGrid);
+buttonErase.addEventListener('click', clearSquare);
+buttonBlack.addEventListener('click', setColorBlack);
+buttonInput.addEventListener('input', setColorInput);
 
 init();
