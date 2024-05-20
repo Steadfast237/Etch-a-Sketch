@@ -1,0 +1,45 @@
+/**
+(main heading)
+.rakkas-regular {
+  font-family: "Rakkas", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+(text)
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 400 to 900
+
+.vollkorn-<uniquifier> {
+  font-family: "Vollkorn", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+**/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1366px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 535px;
+  height: 535px;
+}
