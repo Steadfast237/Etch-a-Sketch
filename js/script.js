@@ -1,4 +1,4 @@
-const gridSize = 16;
+let gridSize = 10;
 const grid = document.querySelector('.container');
 
 function generateGrid() {
@@ -9,8 +9,37 @@ function generateGrid() {
       square.style.width = `${535 / gridSize}px`;
       square.style.outline = '1px solid red';
       square.style.height = 'auto';
+      square.classList.add('square');
 
       grid.appendChild(square);
     }
   }
 }
+
+function startDrawing(e) {
+  e.target.style.backgroundColor = 'black';
+
+  squares.forEach((sq) => {
+    sq.addEventListener('mousemove', drawing);
+  });
+}
+
+function drawing(e) {
+  e.target.style.backgroundColor = 'black';
+}
+
+function stopDrawing() {
+  squares.forEach((sq) => {
+    sq.removeEventListener('mousemove', drawing);
+  });
+}
+
+generateGrid();
+
+const squares = document.querySelectorAll('.square');
+
+squares.forEach((sq) => {
+  sq.addEventListener('mousedown', startDrawing);
+
+  sq.addEventListener('mouseup', stopDrawing);
+});
