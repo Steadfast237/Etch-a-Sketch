@@ -1,5 +1,7 @@
-let gridSize = 10;
+let gridSize = 16;
+let squares = undefined;
 const grid = document.querySelector('.container');
+const buttonSetSize = document.querySelector('.size');
 
 function generateGrid() {
   for (let row = 1; row <= gridSize; row++) {
@@ -34,12 +36,31 @@ function stopDrawing() {
   });
 }
 
-generateGrid();
+function setSize() {
+  let newGridSize = Number(prompt('What size do you want?'));
 
-const squares = document.querySelectorAll('.square');
+  if (isNaN(newGridSize)) {
+    alert('enter a number between 1 and 100');
+    return;
+  }
 
-squares.forEach((sq) => {
-  sq.addEventListener('mousedown', startDrawing);
+  gridSize = newGridSize;
+  grid.textContent = '';
+  init();
+}
 
-  sq.addEventListener('mouseup', stopDrawing);
-});
+function init() {
+  generateGrid();
+
+  squares = document.querySelectorAll('.square');
+
+  squares.forEach((sq) => {
+    sq.addEventListener('mousedown', startDrawing);
+
+    sq.addEventListener('mouseup', stopDrawing);
+  });
+}
+
+buttonSetSize.addEventListener('click', setSize);
+
+init();
