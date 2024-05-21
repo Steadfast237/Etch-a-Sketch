@@ -1,12 +1,14 @@
 let gridSize = 16;
 let squares = undefined;
 let currentColor = 'black';
+let isRandom = false;
 
 const grid = document.querySelector('.container');
 const buttonSetSize = document.querySelector('.size');
 const buttonClear = document.querySelector('.clear');
 const buttonErase = document.querySelector('.erase');
 const buttonBlack = document.querySelector('.black');
+const buttonRandom = document.querySelector('.random');
 const buttonInput = document.querySelector('#input-color');
 
 function generateGrid() {
@@ -24,20 +26,20 @@ function generateGrid() {
 }
 
 function startDrawing(e) {
-  e.target.style.backgroundColor = currentColor;
+  e.target.style.backgroundColor = isRandom ? randomColor() : currentColor;
 
   squares.forEach((sq) => {
-    sq.addEventListener('mousemove', drawing);
+    sq.addEventListener('mouseenter', drawing);
   });
 }
 
 function drawing(e) {
-  e.target.style.backgroundColor = currentColor;
+  e.target.style.backgroundColor = isRandom ? randomColor() : currentColor;
 }
 
 function stopDrawing() {
   squares.forEach((sq) => {
-    sq.removeEventListener('mousemove', drawing);
+    sq.removeEventListener('mouseenter', drawing);
   });
 }
 
@@ -69,14 +71,17 @@ function clearGrid() {
 
 function clearSquare() {
   currentColor = 'white';
+  isRandom = false;
 }
 
 function setColorBlack() {
   currentColor = 'black';
+  isRandom = false;
 }
 
 function setColorInput(e) {
   currentColor = e.target.value;
+  isRandom = false;
 }
 
 function randomColor() {
@@ -103,6 +108,9 @@ buttonSetSize.addEventListener('click', setSize);
 buttonClear.addEventListener('click', clearGrid);
 buttonErase.addEventListener('click', clearSquare);
 buttonBlack.addEventListener('click', setColorBlack);
+buttonRandom.addEventListener('click', function () {
+  isRandom = true;
+});
 buttonInput.addEventListener('input', setColorInput);
 
 init();
